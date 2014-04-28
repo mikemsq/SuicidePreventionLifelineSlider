@@ -1,9 +1,10 @@
-.slide > .slider {
+.slider {
 	position: absolute;
-	display: inline-block;
+	display: block;
 }
 
-.slide > .slider > .toggle {
+.slider > .toggle {
+	cursor: pointer;
 	border: 3px solid #3DA647;
 	border-top: none;
 	text-align: center;
@@ -15,4 +16,5 @@
 	position: relative;
 	top: 3px;
 	background: #F7F7F9;
+	white-space: nowrap;
 }

@@ -25,27 +25,31 @@ if (typeof jQuery === "undefined") {
 		}
 	});
 
-	function SuicidePreventionLifelineSlider() {
+	function SuicidePreventionLifelineSlider(opt) {
+		this.defaultOptions = {
+			align: 'left',
+			toggleContent: 'Get Help!',
+			toggleClass: '',
+			panelContent: '<img src="http://www.suicidepreventionlifeline.org/images/GetInvolved/banner2.jpg" alt="suicidepreventionlifeline.org" />',
+			panelClass: ''
+		};
+		var options = $.extend(true, {}, this.defaultOptions);
+		options = $.extend(true, options, opt);
+	
         $(document).ready(function() {
-			//init();
-			
-			var $slider = $('<div class="slide"><div class="slider"><div class="panel" style="height:60px"><a href="http://www.suicidepreventionlifeline.org" target="_blank"><img src="http://www.suicidepreventionlifeline.org/images/GetInvolved/banner2.jpg" alt="suicidepreventionlifeline.org" /></a></div><a href="" class="toggle" title="Get Help | Click to Expand">Get Help!</a></div></div>');
+			var panel = '<div class="panel ' + options.panelClass + '"><a href="http://www.suicidepreventionlifeline.org" target="_blank">' + options.panelContent + '</a></div>';
+			var toggle = '<div class="toggle ' + options.toggleClass + '" title="Get Help | Click to Expand">' + options.toggleContent + '</div>';
+			var $slider = $('<div class="slider">' + panel + toggle + '</div>');
 			$('body').append($slider);
-			
-			var $panel = $slider.find('> .slider > .panel');
-			var yOffset = $panel.height() + 1;
 			$slider.css('position', 'fixed');
-			$slider.css('top', '-' + yOffset + 'px');
-			
-			var $toggle = $slider.find('> .slider > .toggle');
+			$slider.css('top', '0');
+			var $panel = $slider.find('> .panel');
+			$panel.hide();
+
+			var $toggle = $slider.find('> .toggle');
 			$toggle.click(function () {
-				if ($('.slide').css('top') == '-' + yOffset + 'px') {
-					$('.slide').animate({ top: '0px' }, 500);
-				} else {
-					$('.slide').animate({ top: '-' + yOffset + 'px' }, 500);
-				}
-				return false;
-			})
+				$panel.slideToggle();
+			});
 		});
 	}
 }(jQuery));
